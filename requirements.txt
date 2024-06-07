@@ -1,7 +1,7 @@
 asgiref==3.8.1
-Django==5.0.6
+backports.zoneinfo==0.2.1
+Django==4.2.13
+dynamic-django-forms==0.1.11
 mysqlclient==2.2.4
-packaging==24.0
-pillow==10.2.0
-pytesseract==0.3.10
 sqlparse==0.5.0
+typing-extensions==4.12.0

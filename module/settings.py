@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+DYNAMIC_FORMS_CUSTOM_JS = 'console.log(1)'
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dynamic_forms',
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,7 @@ ROOT_URLCONF = 'module.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,14 +80,23 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
+    #  'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': os.getenv('MYSQL_DATABASE'),
+    #     'USER': os.getenv('MYSQL_USER'),
+    #     'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+    #     'HOST': os.getenv('DB_HOST', 'db'),  # Use 'db' as default from .env
+    #     'PORT': os.getenv('DB_PORT', '3307'),  # Use '3306' as default from .env
+    # }
      'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQL_DATABASE'),
-        'USER': os.getenv('MYSQL_USER'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-        'HOST': os.getenv('DB_HOST', 'db'),  # Use 'db' as default from .env
-        'PORT': os.getenv('DB_PORT', '3307'),  # Use '3306' as default from .env
+        'ENGINE':'django.db.backends.mysql',
+        'NAME':'module',
+        'USER':'deep',
+        'PASSWORD':'password',
+        'HOST': 'localhost',  # Use 'db' as default from .env
+        'PORT': '3306',  # Use '3306' as default from .env
     }
+
 }
 
 
