@@ -92,9 +92,9 @@ DATABASES = {
         'ENGINE':'django.db.backends.mysql',
         'NAME':'module',
         'USER':'deep',
-        'PASSWORD':'password',
-        'HOST': 'localhost',  # Use 'db' as default from .env
-        'PORT': '3306',  # Use '3306' as default from .env
+        'PASSWORD':'deep',
+        'HOST': 'host.docker.internal',  # Use 'db' as default from .env
+        'PORT': '3307',  # Use '3306' as default from .env
     }
 
 }

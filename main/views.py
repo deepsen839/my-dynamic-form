@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView,UpdateView
 from django.urls import reverse
 from dynamic_forms.views import DynamicFormMixin
 from .models import Survey, SurveyResponse
-from .forms import CustomSurveyForm
+from .forms import CustomSurveyForm,CreateForm
 from datetime import date
 import json
 
@@ -83,4 +83,13 @@ class SurveyResponseUpdateView(UpdateView):
                 response_data[field_label] = value
         
         form.instance.response = json.dumps(response_data)
-        return super().form_valid(form)   
+        return super().form_valid(form)
+
+
+def add_form(request):
+    create_form = CreateForm(request.POST or None)
+    if request.method=='POST':
+        if create_form.is_valid():
+            create_form.save()
+            print('2222222222')
+    return render(request,'create_respond.html',{'create_form':create_form})             
