@@ -4,11 +4,13 @@ from django.shortcuts import render, get_object_or_404,redirect
 from django.views.generic.edit import CreateView,UpdateView
 from django.urls import reverse
 from dynamic_forms.views import DynamicFormMixin
-from .models import Survey, SurveyResponse
+from .models import Survey, SurveyResponse,storeevents
 from .forms import CustomSurveyForm
 from datetime import date
 import json
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import io
 class CustomDynamicFormMixin(DynamicFormMixin):
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)
@@ -83,4 +85,25 @@ class SurveyResponseUpdateView(UpdateView):
                 response_data[field_label] = value
         
         form.instance.response = json.dumps(response_data)
-        return super().form_valid(form)   
+        return super().form_valid(form)
+
+@csrf_exempt
+def update_events(request):
+    if request.method=='POST':
+        try:
+            events = request.body.decode('utf-8')
+            print(events)
+            storeevents.objects.create(events=events)
+            return JsonResponse({'msg':'success'})
+        except Exception as e:
+            print(e)
+            return JsonResponse({'msg':'error'})
+@csrf_exempt
+def get_events(request):
+    if request.method=='POST':
+        stored_events = storeevents.objects.all()
+        # for events in stored_events:
+        #     print(json.load(io.BytesIO(events.events.encode()))) 
+        events = [json.loads(events.events) for events in stored_events]
+        return JsonResponse({'events':events})
+    return render(request,'player.html')

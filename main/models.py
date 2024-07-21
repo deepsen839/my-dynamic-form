@@ -15,3 +15,7 @@ class SurveyResponse(models.Model):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE) # Optional
     response = ResponseField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class storeevents(models.Model):
+    events = models.TextField()    

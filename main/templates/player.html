@@ -1,0 +1,43 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/style.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/index.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded',function(events1){
+            let events = [];
+            fetch("{% static 'my-new-file.txt' %}")
+  .then((res) => {return res.json()})
+  .then((text) => {
+    
+    let events3 = text
+    events3.forEach(function (arrayItem) {
+        
+        events.push(arrayItem)
+    });
+    console.log(events1)
+    new rrwebPlayer({
+        target: document.body,
+        props:{
+            events
+        }
+    })
+   })
+  .catch((e) => console.error(e));
+
+
+        })
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
