@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView,UpdateView
 from django.urls import reverse
 from dynamic_forms.views import DynamicFormMixin
 from .models import Survey, SurveyResponse,storeevents
-from .forms import CustomSurveyForm
+from .forms import CustomSurveyForm,CreateForm
 from datetime import date
 import json
 from django.http import JsonResponse
@@ -107,3 +107,11 @@ def get_events(request):
         events = [json.loads(events.events) for events in stored_events]
         return JsonResponse({'events':events})
     return render(request,'player.html')
+
+def add_form(request):
+    create_form = CreateForm(request.POST or None)
+    if request.method=='POST':
+        if create_form.is_valid():
+            create_form.save()
+            print('2222222222')
+    return render(request,'create_respond.html',{'create_form':create_form})             
