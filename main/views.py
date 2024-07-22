@@ -91,7 +91,10 @@ class SurveyResponseUpdateView(UpdateView):
 def update_events(request):
     if request.method=='POST':
         try:
-            events = request.body.decode('utf-8')
+            #json.loads convert double quote to single quote 
+            #json does not accept single quote so to get that
+            # we need to do json.dumps after json.loads
+            events = request.body.decode('utf-8')#it converts to byte to string
             print(events)
             storeevents.objects.create(events=events)
             return JsonResponse({'msg':'success'})
